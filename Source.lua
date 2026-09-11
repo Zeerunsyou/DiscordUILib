@@ -3235,6 +3235,14 @@ function DiscordLib:Window(text)
 				end
 				)
 				ChannelHolder.CanvasSize = UDim2.new(0,0,0,ChannelHolderLayout.AbsoluteContentSize.Y)
+				
+				local ButtonFunc = {}
+				
+				function ButtonFunc:ChangeText(newText)
+				    Button.Text = newText
+				end
+				
+				return ButtonFunc
 			end
 			
 			return ChannelContent
