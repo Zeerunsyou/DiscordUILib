@@ -2290,6 +2290,13 @@ function DiscordLib:Window(text)
 				end)
 				
 				ChannelHolder.CanvasSize = UDim2.new(0,0,0,ChannelHolderLayout.AbsoluteContentSize.Y)
+				local ToggleFunc = {}
+
+				function ToggleFunc:ChangeText(newText)
+				    ToggleTitle.Text = newText
+				end
+				
+				return ToggleFunc
 			end
 			
 			function ChannelContent:Slider(text, min, max, start, callback)
@@ -2471,6 +2478,9 @@ function DiscordLib:Window(text)
 				end
 				
 				ChannelHolder.CanvasSize = UDim2.new(0,0,0,ChannelHolderLayout.AbsoluteContentSize.Y)
+				function SliderFunc:ChangeText(newText)
+				    SliderTitle.Text = newText
+				end
 				return SliderFunc
 			end
 			function ChannelContent:Seperator()
