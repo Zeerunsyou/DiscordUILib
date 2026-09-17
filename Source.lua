@@ -3184,6 +3184,95 @@ function DiscordLib:Window(text)
 				ChannelHolder.CanvasSize = UDim2.new(0,0,0,ChannelHolderLayout.AbsoluteContentSize.Y)
 			end
 			
+			function ChannelContent:List(text, list)
+				local ListFunc = {}
+				local ListFrame = Instance.new("Frame")
+				local ListTitle = Instance.new("TextLabel")
+				local ListOutline = Instance.new("Frame")
+				local ListOutlineCorner = Instance.new("UICorner")
+				local ListHolder = Instance.new("ScrollingFrame")
+				local ListHolderCorner = Instance.new("UICorner")
+				local ListLayout = Instance.new("UIListLayout")
+
+				ListFrame.Name = "List"
+				ListFrame.Parent = ChannelHolder
+				ListFrame.BackgroundTransparency = 1
+				ListFrame.Size = UDim2.new(0, 403, 0, 190)
+
+				ListTitle.Name = "ListTitle"
+				ListTitle.Parent = ListFrame
+				ListTitle.BackgroundTransparency = 1
+				ListTitle.Position = UDim2.new(0, 5, 0, 0)
+				ListTitle.Size = UDim2.new(0, 200, 0, 29)
+				ListTitle.Font = Enum.Font.Gotham
+				ListTitle.Text = text
+				ListTitle.TextColor3 = Color3.fromRGB(127, 131, 137)
+				ListTitle.TextSize = 14
+				ListTitle.TextXAlignment = Enum.TextXAlignment.Left
+
+				ListOutline.Name = "ListOutline"
+				ListOutline.Parent = ListFrame
+				ListOutline.BackgroundColor3 = Color3.fromRGB(37, 40, 43)
+				ListOutline.Position = UDim2.new(0, 3, 0, 29)
+				ListOutline.Size = UDim2.new(0, 396, 0, 158)
+
+				ListOutlineCorner.CornerRadius = UDim.new(0, 3)
+				ListOutlineCorner.Parent = ListOutline
+
+				ListHolder.Name = "ListHolder"
+				ListHolder.Parent = ListOutline
+				ListHolder.BackgroundColor3 = Color3.fromRGB(48, 51, 57)
+				ListHolder.BorderSizePixel = 0
+				ListHolder.Position = UDim2.new(0, 2, 0, 2)
+				ListHolder.Size = UDim2.new(0, 392, 0, 154)
+				ListHolder.CanvasSize = UDim2.new(0, 0, 0, 0)
+				ListHolder.ScrollBarThickness = 5
+				ListHolder.ScrollBarImageColor3 = Color3.fromRGB(28, 29, 32)
+				ListHolder.ClipsDescendants = true
+
+				ListHolderCorner.CornerRadius = UDim.new(0, 3)
+				ListHolderCorner.Parent = ListHolder
+
+				ListLayout.Parent = ListHolder
+				ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+				local function refresh(values)
+					for _, child in ipairs(ListHolder:GetChildren()) do
+						if child:IsA("TextLabel") then
+							child:Destroy()
+						end
+					end
+
+					for i, value in ipairs(values or {}) do
+						local item = Instance.new("TextLabel")
+						item.Name = "Item"
+						item.Parent = ListHolder
+						item.BackgroundTransparency = 1
+						item.Size = UDim2.new(1, -8, 0, 24)
+						item.Font = Enum.Font.Gotham
+						item.Text = tostring(value)
+						item.TextColor3 = Color3.fromRGB(212, 212, 212)
+						item.TextSize = 14
+						item.TextXAlignment = Enum.TextXAlignment.Left
+						item.LayoutOrder = i
+					end
+
+					ListHolder.CanvasSize = UDim2.new(0, 0, 0, ListLayout.AbsoluteContentSize.Y + 4)
+					ChannelHolder.CanvasSize = UDim2.new(0, 0, 0, ChannelHolderLayout.AbsoluteContentSize.Y)
+				end
+
+				function ListFunc:Change(values)
+					refresh(values)
+				end
+
+				function ListFunc:ChangeText(newText)
+					ListTitle.Text = newText
+				end
+
+				refresh(list)
+				return ListFunc
+			end
+			
 			function ChannelContent:Bind(text, presetbind, callback)
 				local Key = presetbind.Name
 				local Keybind = Instance.new("TextButton")
