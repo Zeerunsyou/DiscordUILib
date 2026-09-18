@@ -3134,20 +3134,28 @@ function DiscordLib:Window(text)
 					):Play()
 				end)
 				
+				TextBox:GetPropertyChangedSignal("Text"):Connect(function()
+				    if #TextBox.Text > 0 then
+				        pcall(callback, TextBox.Text)
+				    else
+				        pcall(callback, "")
+				    end
+				end)
+				
 				TextBox.FocusLost:Connect(function(ep)
-					TweenService:Create(
-						TextboxFrameOutline,
-						TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-						{BackgroundColor3 = Color3.fromRGB(37, 40, 43)}
-					):Play()
-					if ep then
-						if #TextBox.Text > 0 then
-							pcall(callback, TextBox.Text)
-							if disapper then
-								TextBox.Text = ""
-							end
-						end
-					end
+				    TweenService:Create(
+				        TextboxFrameOutline,
+				        TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+				        {BackgroundColor3 = Color3.fromRGB(37, 40, 43)}
+				    ):Play()
+				
+				    if ep and #TextBox.Text > 0 then
+				        pcall(callback, TextBox.Text)
+				
+				        if disapper then
+				            TextBox.Text = ""
+				        end
+				    end
 				end)
 				
 				ChannelHolder.CanvasSize = UDim2.new(0,0,0,ChannelHolderLayout.AbsoluteContentSize.Y)
