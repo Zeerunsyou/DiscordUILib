@@ -2837,6 +2837,7 @@ function DiscordLib:Window(text)
 				local Dropdown = Instance.new("Frame")
 				local DropdownTitle = Instance.new("TextLabel")
 				local DropdownFrame = Instance.new("Frame")
+				local DropdownFrameCorner = Instance.new("UICorner")
 				local CurrentSelectedText = Instance.new("TextLabel")
 				local ArrowImg = Instance.new("ImageLabel")
 				local DropdownFrameBtn = Instance.new("TextButton")
@@ -2864,7 +2865,6 @@ function DiscordLib:Window(text)
 				DropdownFrame.Size = UDim2.new(0, 392, 0, 32)
 				DropdownFrame.ZIndex = 2
 			
-				local DropdownFrameCorner = Instance.new("UICorner")
 				DropdownFrameCorner.CornerRadius = UDim.new(0, 3)
 				DropdownFrameCorner.Parent = DropdownFrame
 			
@@ -2904,17 +2904,17 @@ function DiscordLib:Window(text)
 			
 				Popup.Name = "MultiDropdownPopup"
 				Popup.Parent = ChannelHolder
-				Popup.BackgroundColor3 = Color3.fromRGB(47, 49, 54)
+				Popup.BackgroundColor3 = Color3.fromRGB(48, 51, 57)
 				Popup.BorderSizePixel = 0
 				Popup.Visible = false
 				Popup.ZIndex = 1000
 				Popup.ClipsDescendants = true
 			
-				PopupCorner.CornerRadius = UDim.new(0, 4)
+				PopupCorner.CornerRadius = UDim.new(0, 3)
 				PopupCorner.Parent = Popup
 			
 				PopupStroke.Color = Color3.fromRGB(37, 40, 43)
-				PopupStroke.Thickness = 2
+				PopupStroke.Thickness = 1
 				PopupStroke.Parent = Popup
 			
 				Scrolling.Name = "PlayerList"
@@ -2969,7 +2969,12 @@ function DiscordLib:Window(text)
 						absolutePosition.Y - ChannelHolder.AbsolutePosition.Y + absoluteSize.Y + 4
 					)
 			
-					Popup.Size = UDim2.new(0, absoluteSize.X, 0, math.min(180, math.max(40, #list * 30 + 8)))
+					Popup.Size = UDim2.new(
+						0,
+						absoluteSize.X,
+						0,
+						math.min(180, math.max(40, #list * 30 + 8))
+					)
 				end
 			
 				local function rebuild()
@@ -2981,11 +2986,12 @@ function DiscordLib:Window(text)
 			
 					for _, value in ipairs(list) do
 						local Item = Instance.new("TextButton")
+						local ItemCorner = Instance.new("UICorner")
 						local ItemText = Instance.new("TextLabel")
 			
 						Item.Name = "Player"
 						Item.Parent = Scrolling
-						Item.BackgroundColor3 = Color3.fromRGB(42, 44, 48)
+						Item.BackgroundColor3 = Color3.fromRGB(48, 51, 57)
 						Item.BackgroundTransparency = selected[value] and 0 or 1
 						Item.BorderSizePixel = 0
 						Item.Size = UDim2.new(1, -4, 0, 29)
@@ -2993,7 +2999,6 @@ function DiscordLib:Window(text)
 						Item.Text = ""
 						Item.ZIndex = 1002
 			
-						local ItemCorner = Instance.new("UICorner")
 						ItemCorner.CornerRadius = UDim.new(0, 3)
 						ItemCorner.Parent = Item
 			
@@ -3050,7 +3055,6 @@ function DiscordLib:Window(text)
 			
 				local function setOpen(state)
 					DropTog = state
-			
 					Popup.Visible = state
 			
 					if state then
@@ -3064,14 +3068,6 @@ function DiscordLib:Window(text)
 			
 				DropdownFrameBtn.MouseButton1Click:Connect(function()
 					setOpen(not DropTog)
-				end)
-			
-				DropdownFrameBtn.MouseButton1Click:Connect(function()
-					task.defer(function()
-						if DropTog then
-							updatePopupPosition()
-						end
-					end)
 				end)
 			
 				ChannelHolder:GetPropertyChangedSignal("AbsolutePosition"):Connect(function()
