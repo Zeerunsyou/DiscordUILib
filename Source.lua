@@ -2170,8 +2170,9 @@ function DiscordLib:Window(text)
 				end)
 				ChannelHolder.CanvasSize = UDim2.new(0,0,0,ChannelHolderLayout.AbsoluteContentSize.Y)
 			end
-			function ChannelContent:Toggle(text,default,callback)
+			function ChannelContent:Toggle(text, default, callback)
 			    local toggled = default == true
+			
 			    local Toggle = Instance.new("TextButton")
 			    local ToggleTitle = Instance.new("TextLabel")
 			    local ToggleFrame = Instance.new("Frame")
@@ -2190,18 +2191,17 @@ function DiscordLib:Window(text)
 			    Toggle.Font = Enum.Font.Gotham
 			    Toggle.Text = ""
 			    Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
-			    Toggle.TextSize = 14.000
+			    Toggle.TextSize = 14
 			
 			    ToggleTitle.Name = "ToggleTitle"
 			    ToggleTitle.Parent = Toggle
-			    ToggleTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			    ToggleTitle.BackgroundTransparency = 1.000
+			    ToggleTitle.BackgroundTransparency = 1
 			    ToggleTitle.Position = UDim2.new(0, 5, 0, 0)
 			    ToggleTitle.Size = UDim2.new(0, 200, 0, 30)
 			    ToggleTitle.Font = Enum.Font.Gotham
 			    ToggleTitle.Text = text
 			    ToggleTitle.TextColor3 = Color3.fromRGB(127, 131, 137)
-			    ToggleTitle.TextSize = 14.000
+			    ToggleTitle.TextSize = 14
 			    ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
 			
 			    ToggleFrame.Name = "ToggleFrame"
@@ -2211,7 +2211,6 @@ function DiscordLib:Window(text)
 			    ToggleFrame.Size = UDim2.new(0, 40, 0, 21)
 			
 			    ToggleFrameCorner.CornerRadius = UDim.new(1, 8)
-			    ToggleFrameCorner.Name = "ToggleFrameCorner"
 			    ToggleFrameCorner.Parent = ToggleFrame
 			
 			    ToggleFrameCircle.Name = "ToggleFrameCircle"
@@ -2221,109 +2220,61 @@ function DiscordLib:Window(text)
 			    ToggleFrameCircle.Size = UDim2.new(0, 15, 0, 15)
 			
 			    ToggleFrameCircleCorner.CornerRadius = UDim.new(1, 0)
-			    ToggleFrameCircleCorner.Name = "ToggleFrameCircleCorner"
 			    ToggleFrameCircleCorner.Parent = ToggleFrameCircle
 			
 			    Icon.Name = "Icon"
 			    Icon.Parent = ToggleFrameCircle
 			    Icon.AnchorPoint = Vector2.new(0.5, 0.5)
-			    Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			    Icon.BackgroundTransparency = 1.000
-			    Icon.BorderColor3 = Color3.fromRGB(27, 42, 53)
+			    Icon.BackgroundTransparency = 1
 			    Icon.Position = UDim2.new(0, 8, 0, 8)
 			    Icon.Size = UDim2.new(0, 13, 0, 13)
 			    Icon.ImageColor3 = Color3.fromRGB(114, 118, 125)
+			    Icon.Image = "http://www.roblox.com/asset/?id=6035047409"
 			
-			    local function updateToggle(state, runCallback)
-			        toggled = state == true
+			    local function setVisual(state)
+			        toggled = state
 			
 			        if toggled then
-			            TweenService:Create(
-			                Icon,
-			                TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-			                {ImageColor3 = Color3.fromRGB(67,181,129)}
-			            ):Play()
-			
-			            TweenService:Create(
-			                ToggleFrame,
-			                TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-			                {BackgroundColor3 = Color3.fromRGB(67,181,129)}
-			            ):Play()
+			            ToggleFrame.BackgroundColor3 = Color3.fromRGB(67, 181, 129)
+			            Icon.ImageColor3 = Color3.fromRGB(67, 181, 129)
+			            Icon.Image = "http://www.roblox.com/asset/?id=6023426926"
 			
 			            ToggleFrameCircle:TweenPosition(
 			                UDim2.new(0.655, -5, 0.133000001, 0),
 			                Enum.EasingDirection.Out,
 			                Enum.EasingStyle.Quart,
-			                .3,
+			                0.15,
 			                true
 			            )
-			
-			            TweenService:Create(
-			                Icon,
-			                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-			                {ImageTransparency = 1}
-			            ):Play()
-			
-			            Icon.Image = "http://www.roblox.com/asset/?id=6023426926"
-			
-			            task.wait(.1)
-			
-			            TweenService:Create(
-			                Icon,
-			                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-			                {ImageTransparency = 0}
-			            ):Play()
 			        else
-			            TweenService:Create(
-			                Icon,
-			                TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-			                {ImageColor3 = Color3.fromRGB(114, 118, 125)}
-			            ):Play()
-			
-			            TweenService:Create(
-			                ToggleFrame,
-			                TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-			                {BackgroundColor3 = Color3.fromRGB(114, 118, 125)}
-			            ):Play()
+			            ToggleFrame.BackgroundColor3 = Color3.fromRGB(114, 118, 125)
+			            Icon.ImageColor3 = Color3.fromRGB(114, 118, 125)
+			            Icon.Image = "http://www.roblox.com/asset/?id=6035047409"
 			
 			            ToggleFrameCircle:TweenPosition(
 			                UDim2.new(0.234999999, -5, 0.133000001, 0),
 			                Enum.EasingDirection.Out,
 			                Enum.EasingStyle.Quart,
-			                .3,
+			                0.15,
 			                true
 			            )
-			
-			            TweenService:Create(
-			                Icon,
-			                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-			                {ImageTransparency = 1}
-			            ):Play()
-			
-			            Icon.Image = "http://www.roblox.com/asset/?id=6035047409"
-			
-			            task.wait(.1)
-			
-			            TweenService:Create(
-			                Icon,
-			                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-			                {ImageTransparency = 0}
-			            ):Play()
-			        end
-			
-			        if runCallback then
-			            pcall(callback, toggled)
 			        end
 			    end
-			
-			    Toggle.MouseButton1Click:Connect(function()
-			        updateToggle(not toggled, true)
-			    end)
 			
 			    local ToggleFunc = {}
 			
 			    function ToggleFunc:Set(state)
-			        updateToggle(state, true)
+			        state = state == true
+			
+			        if toggled == state then
+			            return
+			        end
+			
+			        setVisual(state)
+			
+			        if callback then
+			            callback(state)
+			        end
 			    end
 			
 			    function ToggleFunc:Get()
@@ -2334,7 +2285,11 @@ function DiscordLib:Window(text)
 			        ToggleTitle.Text = newText
 			    end
 			
-			    updateToggle(toggled, false)
+			    Toggle.MouseButton1Click:Connect(function()
+			        ToggleFunc:Set(not toggled)
+			    end)
+			
+			    setVisual(toggled)
 			
 			    ChannelHolder.CanvasSize = UDim2.new(
 			        0,
