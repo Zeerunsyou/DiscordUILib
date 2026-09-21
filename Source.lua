@@ -3383,103 +3383,112 @@ function DiscordLib:Window(text)
 			end
 			
 			function ChannelContent:Textbox(text, placetext, disapper, callback)
-				local Textbox = Instance.new("Frame")
-				local TextboxTitle = Instance.new("TextLabel")
-				local TextboxFrameOutline = Instance.new("Frame")
-				local TextboxFrameOutlineCorner = Instance.new("UICorner")
-				local TextboxFrame = Instance.new("Frame")
-				local TextboxFrameCorner = Instance.new("UICorner")
-				local TextBox = Instance.new("TextBox")
-
-				Textbox.Name = "Textbox"
-				Textbox.Parent = ChannelHolder
-				Textbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				Textbox.BackgroundTransparency = 1.000
-				Textbox.Position = UDim2.new(0.0796874985, 0, 0.445175439, 0)
-				Textbox.Size = UDim2.new(0, 403, 0, 73)
-
-				TextboxTitle.Name = "TextboxTitle"
-				TextboxTitle.Parent = Textbox
-				TextboxTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				TextboxTitle.BackgroundTransparency = 1.000
-				TextboxTitle.Position = UDim2.new(0, 5, 0, 0)
-				TextboxTitle.Size = UDim2.new(0, 200, 0, 29)
-				TextboxTitle.Font = Enum.Font.Gotham
-				TextboxTitle.Text = text
-				TextboxTitle.TextColor3 = Color3.fromRGB(127, 131, 137)
-				TextboxTitle.TextSize = 14.000
-				TextboxTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-				TextboxFrameOutline.Name = "TextboxFrameOutline"
-				TextboxFrameOutline.Parent = TextboxTitle
-				TextboxFrameOutline.AnchorPoint = Vector2.new(0.5, 0.5)
-				TextboxFrameOutline.BackgroundColor3 = Color3.fromRGB(37, 40, 43)
-				TextboxFrameOutline.Position = UDim2.new(0.988442957, 0, 1.6197437, 0)
-				TextboxFrameOutline.Size = UDim2.new(0, 396, 0, 36)
-
-				TextboxFrameOutlineCorner.CornerRadius = UDim.new(0, 3)
-				TextboxFrameOutlineCorner.Name = "TextboxFrameOutlineCorner"
-				TextboxFrameOutlineCorner.Parent = TextboxFrameOutline
-
-				TextboxFrame.Name = "TextboxFrame"
-				TextboxFrame.Parent = TextboxTitle
-				TextboxFrame.BackgroundColor3 = Color3.fromRGB(48, 51, 57)
-				TextboxFrame.ClipsDescendants = true
-				TextboxFrame.Position = UDim2.new(0.00999999978, 0, 1.06638527, 0)
-				TextboxFrame.Selectable = true
-				TextboxFrame.Size = UDim2.new(0, 392, 0, 32)
-
-				TextboxFrameCorner.CornerRadius = UDim.new(0, 3)
-				TextboxFrameCorner.Name = "TextboxFrameCorner"
-				TextboxFrameCorner.Parent = TextboxFrame
-
-				TextBox.Parent = TextboxFrame
-				TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				TextBox.BackgroundTransparency = 1.000
-				TextBox.Position = UDim2.new(0.0178571437, 0, 0, 0)
-				TextBox.Size = UDim2.new(0, 377, 0, 32)
-				TextBox.Font = Enum.Font.Gotham
-				TextBox.PlaceholderColor3 = Color3.fromRGB(91, 95, 101)
-				TextBox.PlaceholderText = placetext
-				TextBox.Text = ""
-				TextBox.TextColor3 = Color3.fromRGB(193, 195, 197)
-				TextBox.TextSize = 14.000
-				TextBox.TextXAlignment = Enum.TextXAlignment.Left
-				
-				TextBox.Focused:Connect(function()
-					TweenService:Create(
-						TextboxFrameOutline,
-						TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-						{BackgroundColor3 = Color3.fromRGB(114, 137, 228)}
-					):Play()
-				end)
-				
-				TextBox:GetPropertyChangedSignal("Text"):Connect(function()
-				    if #TextBox.Text > 0 then
-				        pcall(callback, TextBox.Text)
-				    else
-				        pcall(callback, "")
-				    end
-				end)
-				
-				TextBox.FocusLost:Connect(function(ep)
-				    TweenService:Create(
-				        TextboxFrameOutline,
-				        TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-				        {BackgroundColor3 = Color3.fromRGB(37, 40, 43)}
-				    ):Play()
-				
-				    if ep and #TextBox.Text > 0 then
-				        pcall(callback, TextBox.Text)
-				
-				        if disapper then
-				            TextBox.Text = ""
-				        end
-				    end
-				end)
-				
-				ChannelHolder.CanvasSize = UDim2.new(0,0,0,ChannelHolderLayout.AbsoluteContentSize.Y)
+			    local Textbox = Instance.new("Frame")
+			    local TextboxTitle = Instance.new("TextLabel")
+			    local TextboxFrameOutline = Instance.new("Frame")
+			    local TextboxFrameOutlineCorner = Instance.new("UICorner")
+			    local TextboxFrame = Instance.new("Frame")
+			    local TextboxFrameCorner = Instance.new("UICorner")
+			    local TextBox = Instance.new("TextBox")
+			
+			    if type(disapper) == "function" and callback == nil then
+			        callback = disapper
+			        disapper = false
+			    end
+			
+			    Textbox.Name = "Textbox"
+			    Textbox.Parent = ChannelHolder
+			    Textbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			    Textbox.BackgroundTransparency = 1.000
+			    Textbox.Position = UDim2.new(0.0796874985, 0, 0.445175439, 0)
+			    Textbox.Size = UDim2.new(0, 403, 0, 73)
+			
+			    TextboxTitle.Name = "TextboxTitle"
+			    TextboxTitle.Parent = Textbox
+			    TextboxTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			    TextboxTitle.BackgroundTransparency = 1.000
+			    TextboxTitle.Position = UDim2.new(0, 5, 0, 0)
+			    TextboxTitle.Size = UDim2.new(0, 200, 0, 29)
+			    TextboxTitle.Font = Enum.Font.Gotham
+			    TextboxTitle.Text = text
+			    TextboxTitle.TextColor3 = Color3.fromRGB(127, 131, 137)
+			    TextboxTitle.TextSize = 14.000
+			    TextboxTitle.TextXAlignment = Enum.TextXAlignment.Left
+			
+			    TextboxFrameOutline.Name = "TextboxFrameOutline"
+			    TextboxFrameOutline.Parent = TextboxTitle
+			    TextboxFrameOutline.AnchorPoint = Vector2.new(0.5, 0.5)
+			    TextboxFrameOutline.BackgroundColor3 = Color3.fromRGB(37, 40, 43)
+			    TextboxFrameOutline.Position = UDim2.new(0.988442957, 0, 1.6197437, 0)
+			    TextboxFrameOutline.Size = UDim2.new(0, 396, 0, 36)
+			
+			    TextboxFrameOutlineCorner.CornerRadius = UDim.new(0, 3)
+			    TextboxFrameOutlineCorner.Name = "TextboxFrameOutlineCorner"
+			    TextboxFrameOutlineCorner.Parent = TextboxFrameOutline
+			
+			    TextboxFrame.Name = "TextboxFrame"
+			    TextboxFrame.Parent = TextboxTitle
+			    TextboxFrame.BackgroundColor3 = Color3.fromRGB(48, 51, 57)
+			    TextboxFrame.ClipsDescendants = true
+			    TextboxFrame.Position = UDim2.new(0.00999999978, 0, 1.06638527, 0)
+			    TextboxFrame.Selectable = true
+			    TextboxFrame.Size = UDim2.new(0, 392, 0, 32)
+			
+			    TextboxFrameCorner.CornerRadius = UDim.new(0, 3)
+			    TextboxFrameCorner.Name = "TextboxFrameCorner"
+			    TextboxFrameCorner.Parent = TextboxFrame
+			
+			    TextBox.Parent = TextboxFrame
+			    TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			    TextBox.BackgroundTransparency = 1.000
+			    TextBox.Position = UDim2.new(0.0178571437, 0, 0, 0)
+			    TextBox.Size = UDim2.new(0, 377, 0, 32)
+			    TextBox.Font = Enum.Font.Gotham
+			    TextBox.PlaceholderColor3 = Color3.fromRGB(91, 95, 101)
+			    TextBox.PlaceholderText = placetext
+			    TextBox.Text = ""
+			    TextBox.TextColor3 = Color3.fromRGB(193, 195, 197)
+			    TextBox.TextSize = 14.000
+			    TextBox.TextXAlignment = Enum.TextXAlignment.Left
+			
+			    TextBox.Focused:Connect(function()
+			        TweenService:Create(
+			            TextboxFrameOutline,
+			            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+			            {BackgroundColor3 = Color3.fromRGB(114, 137, 228)}
+			        ):Play()
+			    end)
+			
+			    TextBox.FocusLost:Connect(function(enterPressed)
+			        TweenService:Create(
+			            TextboxFrameOutline,
+			            TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+			            {BackgroundColor3 = Color3.fromRGB(37, 40, 43)}
+			        ):Play()
+			
+			        if enterPressed and TextBox.Text ~= "" then
+			            local value = TextBox.Text
+			
+			            if callback then
+			                pcall(callback, value)
+			            end
+			
+			            if disapper == true then
+			                TextBox.Text = ""
+			            else
+			                TextBox.Text = value
+			            end
+			        end
+			    end)
+			
+			    ChannelHolder.CanvasSize = UDim2.new(
+			        0,
+			        0,
+			        0,
+			        ChannelHolderLayout.AbsoluteContentSize.Y
+			    )
 			end
+
 			
 			function ChannelContent:Label(text)
 				local Label = Instance.new("TextButton")
