@@ -2171,132 +2171,179 @@ function DiscordLib:Window(text)
 				ChannelHolder.CanvasSize = UDim2.new(0,0,0,ChannelHolderLayout.AbsoluteContentSize.Y)
 			end
 			function ChannelContent:Toggle(text,default,callback)
-				local toggled = false
-				local Toggle = Instance.new("TextButton")
-				local ToggleTitle = Instance.new("TextLabel")
-				local ToggleFrame = Instance.new("Frame")
-				local ToggleFrameCorner = Instance.new("UICorner")
-				local ToggleFrameCircle = Instance.new("Frame")
-				local ToggleFrameCircleCorner = Instance.new("UICorner")
-				local Icon = Instance.new("ImageLabel")
-
-				Toggle.Name = "Toggle"
-				Toggle.Parent = ChannelHolder
-				Toggle.BackgroundColor3 = Color3.fromRGB(54, 57, 63)
-				Toggle.BorderSizePixel = 0
-				Toggle.Position = UDim2.new(0.261979163, 0, 0.190789461, 0)
-				Toggle.Size = UDim2.new(0, 401, 0, 30)
-				Toggle.AutoButtonColor = false
-				Toggle.Font = Enum.Font.Gotham
-				Toggle.Text = ""
-				Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
-				Toggle.TextSize = 14.000
-
-				ToggleTitle.Name = "ToggleTitle"
-				ToggleTitle.Parent = Toggle
-				ToggleTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				ToggleTitle.BackgroundTransparency = 1.000
-				ToggleTitle.Position = UDim2.new(0, 5, 0, 0)
-				ToggleTitle.Size = UDim2.new(0, 200, 0, 30)
-				ToggleTitle.Font = Enum.Font.Gotham
-				ToggleTitle.Text = text
-				ToggleTitle.TextColor3 = Color3.fromRGB(127, 131, 137)
-				ToggleTitle.TextSize = 14.000
-				ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-				ToggleFrame.Name = "ToggleFrame"
-				ToggleFrame.Parent = Toggle
-				ToggleFrame.BackgroundColor3 = Color3.fromRGB(114, 118, 125)
-				ToggleFrame.Position = UDim2.new(0.900481343, -5, 0.13300018, 0)
-				ToggleFrame.Size = UDim2.new(0, 40, 0, 21)
-
-				ToggleFrameCorner.CornerRadius = UDim.new(1, 8)
-				ToggleFrameCorner.Name = "ToggleFrameCorner"
-				ToggleFrameCorner.Parent = ToggleFrame
-
-				ToggleFrameCircle.Name = "ToggleFrameCircle"
-				ToggleFrameCircle.Parent = ToggleFrame
-				ToggleFrameCircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				ToggleFrameCircle.Position = UDim2.new(0.234999999, -5, 0.133000001, 0)
-				ToggleFrameCircle.Size = UDim2.new(0, 15, 0, 15)
-
-				ToggleFrameCircleCorner.CornerRadius = UDim.new(1, 0)
-				ToggleFrameCircleCorner.Name = "ToggleFrameCircleCorner"
-				ToggleFrameCircleCorner.Parent = ToggleFrameCircle
-
-				Icon.Name = "Icon"
-				Icon.Parent = ToggleFrameCircle
-				Icon.AnchorPoint = Vector2.new(0.5, 0.5)
-				Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				Icon.BackgroundTransparency = 1.000
-				Icon.BorderColor3 = Color3.fromRGB(27, 42, 53)
-				Icon.Position = UDim2.new(0, 8, 0, 8)
-				Icon.Size = UDim2.new(0, 13, 0, 13)
-				Icon.Image = "http://www.roblox.com/asset/?id=6035047409"
-				Icon.ImageColor3 = Color3.fromRGB(114, 118, 125)
-				
-				Toggle.MouseButton1Click:Connect(function()
-					if toggled == false then
-						TweenService:Create(
-							Icon,
-							TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-							{ImageColor3 = Color3.fromRGB(67,181,129)}
-						):Play()
-						TweenService:Create(
-							ToggleFrame,
-							TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-							{BackgroundColor3 = Color3.fromRGB(67,181,129)}
-						):Play()
-						ToggleFrameCircle:TweenPosition(UDim2.new(0.655, -5, 0.133000001, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
-						TweenService:Create(
-							Icon,
-							TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-							{ImageTransparency = 1}
-						):Play()
-						Icon.Image = "http://www.roblox.com/asset/?id=6023426926"
-						wait(.1)
-						TweenService:Create(
-							Icon,
-							TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-							{ImageTransparency = 0}
-						):Play()
-					else
-						TweenService:Create(
-							Icon,
-							TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-							{ImageColor3 = Color3.fromRGB(114, 118, 125)}
-						):Play()
-						TweenService:Create(
-							ToggleFrame,
-							TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-							{BackgroundColor3 = Color3.fromRGB(114, 118, 125)}
-						):Play()
-						ToggleFrameCircle:TweenPosition(UDim2.new(0.234999999, -5, 0.133000001, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
-						TweenService:Create(
-							Icon,
-							TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-							{ImageTransparency = 1}
-						):Play()
-						Icon.Image = "http://www.roblox.com/asset/?id=6035047409"
-						wait(.1)
-						TweenService:Create(
-							Icon,
-							TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-							{ImageTransparency = 0}
-						):Play()
-					end
-					toggled = not toggled
-					pcall(callback, toggled)
-				end)
-				
-				ChannelHolder.CanvasSize = UDim2.new(0,0,0,ChannelHolderLayout.AbsoluteContentSize.Y)
-				local ToggleFunc = {}
-
-				function ToggleFunc:ChangeText(newText)
-				    ToggleTitle.Text = newText
-				end
-				
-				return ToggleFunc
+			    local toggled = default == true
+			    local Toggle = Instance.new("TextButton")
+			    local ToggleTitle = Instance.new("TextLabel")
+			    local ToggleFrame = Instance.new("Frame")
+			    local ToggleFrameCorner = Instance.new("UICorner")
+			    local ToggleFrameCircle = Instance.new("Frame")
+			    local ToggleFrameCircleCorner = Instance.new("UICorner")
+			    local Icon = Instance.new("ImageLabel")
+			
+			    Toggle.Name = "Toggle"
+			    Toggle.Parent = ChannelHolder
+			    Toggle.BackgroundColor3 = Color3.fromRGB(54, 57, 63)
+			    Toggle.BorderSizePixel = 0
+			    Toggle.Position = UDim2.new(0.261979163, 0, 0.190789461, 0)
+			    Toggle.Size = UDim2.new(0, 401, 0, 30)
+			    Toggle.AutoButtonColor = false
+			    Toggle.Font = Enum.Font.Gotham
+			    Toggle.Text = ""
+			    Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+			    Toggle.TextSize = 14.000
+			
+			    ToggleTitle.Name = "ToggleTitle"
+			    ToggleTitle.Parent = Toggle
+			    ToggleTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			    ToggleTitle.BackgroundTransparency = 1.000
+			    ToggleTitle.Position = UDim2.new(0, 5, 0, 0)
+			    ToggleTitle.Size = UDim2.new(0, 200, 0, 30)
+			    ToggleTitle.Font = Enum.Font.Gotham
+			    ToggleTitle.Text = text
+			    ToggleTitle.TextColor3 = Color3.fromRGB(127, 131, 137)
+			    ToggleTitle.TextSize = 14.000
+			    ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
+			
+			    ToggleFrame.Name = "ToggleFrame"
+			    ToggleFrame.Parent = Toggle
+			    ToggleFrame.BackgroundColor3 = Color3.fromRGB(114, 118, 125)
+			    ToggleFrame.Position = UDim2.new(0.900481343, -5, 0.13300018, 0)
+			    ToggleFrame.Size = UDim2.new(0, 40, 0, 21)
+			
+			    ToggleFrameCorner.CornerRadius = UDim.new(1, 8)
+			    ToggleFrameCorner.Name = "ToggleFrameCorner"
+			    ToggleFrameCorner.Parent = ToggleFrame
+			
+			    ToggleFrameCircle.Name = "ToggleFrameCircle"
+			    ToggleFrameCircle.Parent = ToggleFrame
+			    ToggleFrameCircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			    ToggleFrameCircle.Position = UDim2.new(0.234999999, -5, 0.133000001, 0)
+			    ToggleFrameCircle.Size = UDim2.new(0, 15, 0, 15)
+			
+			    ToggleFrameCircleCorner.CornerRadius = UDim.new(1, 0)
+			    ToggleFrameCircleCorner.Name = "ToggleFrameCircleCorner"
+			    ToggleFrameCircleCorner.Parent = ToggleFrameCircle
+			
+			    Icon.Name = "Icon"
+			    Icon.Parent = ToggleFrameCircle
+			    Icon.AnchorPoint = Vector2.new(0.5, 0.5)
+			    Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			    Icon.BackgroundTransparency = 1.000
+			    Icon.BorderColor3 = Color3.fromRGB(27, 42, 53)
+			    Icon.Position = UDim2.new(0, 8, 0, 8)
+			    Icon.Size = UDim2.new(0, 13, 0, 13)
+			    Icon.ImageColor3 = Color3.fromRGB(114, 118, 125)
+			
+			    local function updateToggle(state, runCallback)
+			        toggled = state == true
+			
+			        if toggled then
+			            TweenService:Create(
+			                Icon,
+			                TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+			                {ImageColor3 = Color3.fromRGB(67,181,129)}
+			            ):Play()
+			
+			            TweenService:Create(
+			                ToggleFrame,
+			                TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+			                {BackgroundColor3 = Color3.fromRGB(67,181,129)}
+			            ):Play()
+			
+			            ToggleFrameCircle:TweenPosition(
+			                UDim2.new(0.655, -5, 0.133000001, 0),
+			                Enum.EasingDirection.Out,
+			                Enum.EasingStyle.Quart,
+			                .3,
+			                true
+			            )
+			
+			            TweenService:Create(
+			                Icon,
+			                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+			                {ImageTransparency = 1}
+			            ):Play()
+			
+			            Icon.Image = "http://www.roblox.com/asset/?id=6023426926"
+			
+			            task.wait(.1)
+			
+			            TweenService:Create(
+			                Icon,
+			                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+			                {ImageTransparency = 0}
+			            ):Play()
+			        else
+			            TweenService:Create(
+			                Icon,
+			                TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+			                {ImageColor3 = Color3.fromRGB(114, 118, 125)}
+			            ):Play()
+			
+			            TweenService:Create(
+			                ToggleFrame,
+			                TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+			                {BackgroundColor3 = Color3.fromRGB(114, 118, 125)}
+			            ):Play()
+			
+			            ToggleFrameCircle:TweenPosition(
+			                UDim2.new(0.234999999, -5, 0.133000001, 0),
+			                Enum.EasingDirection.Out,
+			                Enum.EasingStyle.Quart,
+			                .3,
+			                true
+			            )
+			
+			            TweenService:Create(
+			                Icon,
+			                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+			                {ImageTransparency = 1}
+			            ):Play()
+			
+			            Icon.Image = "http://www.roblox.com/asset/?id=6035047409"
+			
+			            task.wait(.1)
+			
+			            TweenService:Create(
+			                Icon,
+			                TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+			                {ImageTransparency = 0}
+			            ):Play()
+			        end
+			
+			        if runCallback then
+			            pcall(callback, toggled)
+			        end
+			    end
+			
+			    Toggle.MouseButton1Click:Connect(function()
+			        updateToggle(not toggled, true)
+			    end)
+			
+			    local ToggleFunc = {}
+			
+			    function ToggleFunc:Set(state)
+			        updateToggle(state, true)
+			    end
+			
+			    function ToggleFunc:Get()
+			        return toggled
+			    end
+			
+			    function ToggleFunc:ChangeText(newText)
+			        ToggleTitle.Text = newText
+			    end
+			
+			    updateToggle(toggled, false)
+			
+			    ChannelHolder.CanvasSize = UDim2.new(
+			        0,
+			        0,
+			        0,
+			        ChannelHolderLayout.AbsoluteContentSize.Y
+			    )
+			
+			    return ToggleFunc
 			end
 			
 			function ChannelContent:Slider(text, min, max, start, callback)
