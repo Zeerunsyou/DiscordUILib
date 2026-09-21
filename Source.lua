@@ -2916,6 +2916,7 @@ function DiscordLib:Window(text)
 				MainOutline.BackgroundColor3 = Color3.fromRGB(37, 40, 43)
 				MainOutline.Position = UDim2.new(-0.0015, 0, 2.17, 0)
 				MainOutline.Size = UDim2.new(0, 396, 0, 81)
+				MainOutline.ZIndex = 100
 				MainOutline.Visible = false
 			
 				local MainOutlineCorner = Instance.new("UICorner")
