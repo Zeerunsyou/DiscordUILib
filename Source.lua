@@ -2850,6 +2850,7 @@ function DiscordLib:Window(text)
 				Dropdown.Parent = ChannelHolder
 				Dropdown.BackgroundTransparency = 1
 				Dropdown.Size = UDim2.new(0, 403, 0, 73)
+				Dropdown.ZIndex = 100
 			
 				DropdownTitle.Name = "DropdownTitle"
 				DropdownTitle.Parent = Dropdown
@@ -2861,6 +2862,7 @@ function DiscordLib:Window(text)
 				DropdownTitle.TextColor3 = Color3.fromRGB(127, 131, 137)
 				DropdownTitle.TextSize = 14
 				DropdownTitle.TextXAlignment = Enum.TextXAlignment.Left
+				DropdownTitle.ZIndex = 101
 			
 				DropdownFrameOutline.Name = "DropdownFrameOutline"
 				DropdownFrameOutline.Parent = DropdownTitle
@@ -2868,6 +2870,7 @@ function DiscordLib:Window(text)
 				DropdownFrameOutline.BackgroundColor3 = Color3.fromRGB(37, 40, 43)
 				DropdownFrameOutline.Position = UDim2.new(0.988, 0, 1.62, 0)
 				DropdownFrameOutline.Size = UDim2.new(0, 396, 0, 36)
+				DropdownFrameOutline.ZIndex = 102
 			
 				DropdownFrameOutlineCorner.CornerRadius = UDim.new(0, 3)
 				DropdownFrameOutlineCorner.Parent = DropdownFrameOutline
@@ -2878,6 +2881,7 @@ function DiscordLib:Window(text)
 				DropdownFrame.ClipsDescendants = true
 				DropdownFrame.Position = UDim2.new(0.01, 0, 1.066, 0)
 				DropdownFrame.Size = UDim2.new(0, 392, 0, 32)
+				DropdownFrame.ZIndex = 103
 			
 				DropdownFrameCorner.CornerRadius = UDim.new(0, 3)
 				DropdownFrameCorner.Parent = DropdownFrame
@@ -2892,6 +2896,7 @@ function DiscordLib:Window(text)
 				CurrentSelectedText.TextColor3 = Color3.fromRGB(212, 212, 212)
 				CurrentSelectedText.TextSize = 14
 				CurrentSelectedText.TextXAlignment = Enum.TextXAlignment.Left
+				CurrentSelectedText.ZIndex = 104
 			
 				ArrowImg.Name = "ArrowImg"
 				ArrowImg.Parent = CurrentSelectedText
@@ -2900,46 +2905,55 @@ function DiscordLib:Window(text)
 				ArrowImg.Size = UDim2.new(0, 22, 0, 22)
 				ArrowImg.Image = "http://www.roblox.com/asset/?id=6034818372"
 				ArrowImg.ImageColor3 = Color3.fromRGB(212, 212, 212)
+				ArrowImg.ZIndex = 105
 			
 				DropdownFrameBtn.Name = "DropdownFrameBtn"
 				DropdownFrameBtn.Parent = DropdownFrame
 				DropdownFrameBtn.BackgroundTransparency = 1
 				DropdownFrameBtn.Size = UDim2.new(1, 0, 1, 0)
 				DropdownFrameBtn.Text = ""
+				DropdownFrameBtn.ZIndex = 106
 			
 				local MainOutline = Instance.new("Frame")
 				local Main = Instance.new("Frame")
 				local Holder = Instance.new("ScrollingFrame")
 				local Layout = Instance.new("UIListLayout")
 			
+				MainOutline.Name = "MainOutline"
 				MainOutline.Parent = DropdownTitle
 				MainOutline.BackgroundColor3 = Color3.fromRGB(37, 40, 43)
 				MainOutline.Position = UDim2.new(-0.0015, 0, 2.17, 0)
 				MainOutline.Size = UDim2.new(0, 396, 0, 81)
-				MainOutline.ZIndex = 100
+				MainOutline.ZIndex = 107
+				MainOutline.ClipsDescendants = false
 				MainOutline.Visible = false
 			
 				local MainOutlineCorner = Instance.new("UICorner")
 				MainOutlineCorner.CornerRadius = UDim.new(0, 3)
 				MainOutlineCorner.Parent = MainOutline
 			
+				Main.Name = "Main"
 				Main.Parent = DropdownTitle
 				Main.BackgroundColor3 = Color3.fromRGB(47, 49, 54)
-				Main.ClipsDescendants = true
+				Main.ClipsDescendants = false
 				Main.Position = UDim2.new(0.01, 0, 2.257, 0)
 				Main.Size = UDim2.new(0, 392, 0, 77)
+				Main.ZIndex = 108
 				Main.Visible = false
 			
 				local MainCorner = Instance.new("UICorner")
 				MainCorner.CornerRadius = UDim.new(0, 3)
 				MainCorner.Parent = Main
 			
+				Holder.Name = "Holder"
 				Holder.Parent = Main
 				Holder.BackgroundTransparency = 1
 				Holder.Position = UDim2.new(0, 3, 0, 8)
 				Holder.Size = UDim2.new(0, 385, 0, 0)
 				Holder.ScrollBarThickness = 4
 				Holder.CanvasSize = UDim2.new(0, 0, 0, 0)
+				Holder.ZIndex = 109
+				Holder.ClipsDescendants = true
 			
 				Layout.Parent = Holder
 				Layout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -2999,7 +3013,9 @@ function DiscordLib:Window(text)
 						Item.Size = UDim2.new(0, 379, 0, 29)
 						Item.AutoButtonColor = false
 						Item.Text = ""
+						Item.ZIndex = 110
 			
+						ItemText.Name = "ItemText"
 						ItemText.Parent = Item
 						ItemText.BackgroundTransparency = 1
 						ItemText.Position = UDim2.new(0.021, 0, 0, 0)
@@ -3011,6 +3027,7 @@ function DiscordLib:Window(text)
 						ItemText.TextSize = 14
 						ItemText.TextXAlignment = Enum.TextXAlignment.Left
 						ItemText.Text = value
+						ItemText.ZIndex = 111
 			
 						Item.MouseEnter:Connect(function()
 							Item.BackgroundTransparency = 0
@@ -3044,15 +3061,26 @@ function DiscordLib:Window(text)
 			
 				DropdownFrameBtn.MouseButton1Click:Connect(function()
 					DropTog = not DropTog
+			
 					Main.Visible = DropTog
 					MainOutline.Visible = DropTog
+			
+					if DropTog then
+						Dropdown.ZIndex = 100
+						DropdownTitle.ZIndex = 101
+						MainOutline.ZIndex = 107
+						Main.ZIndex = 108
+						Holder.ZIndex = 109
+					end
 				end)
 			
 				function DropFunc:Clear()
 					selected = {}
 					list = {}
 					CurrentSelectedText.Text = "None"
+			
 					rebuild()
+			
 					pcall(callback, {})
 				end
 			
@@ -3063,6 +3091,7 @@ function DiscordLib:Window(text)
 			
 				function DropFunc:SetList(newList)
 					local oldSelected = selected
+			
 					selected = {}
 					list = newList or {}
 			
@@ -3088,13 +3117,19 @@ function DiscordLib:Window(text)
 			
 				function DropFunc:Reset()
 					selected = {}
+			
 					updateText()
 					rebuild()
 				end
 			
 				rebuild()
 			
-				ChannelHolder.CanvasSize = UDim2.new(0, 0, 0, ChannelHolderLayout.AbsoluteContentSize.Y)
+				ChannelHolder.CanvasSize = UDim2.new(
+					0,
+					0,
+					0,
+					ChannelHolderLayout.AbsoluteContentSize.Y
+				)
 			
 				return DropFunc
 			end
