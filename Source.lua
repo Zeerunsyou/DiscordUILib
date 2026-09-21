@@ -2832,16 +2832,11 @@ function DiscordLib:Window(text)
 			function ChannelContent:MultiDropdown(text, list, callback)
 				local selected = {}
 				local DropFunc = {}
-				local itemcount = 0
-				local framesize = 0
 				local DropTog = false
 			
 				local Dropdown = Instance.new("Frame")
 				local DropdownTitle = Instance.new("TextLabel")
-				local DropdownFrameOutline = Instance.new("Frame")
-				local DropdownFrameOutlineCorner = Instance.new("UICorner")
 				local DropdownFrame = Instance.new("Frame")
-				local DropdownFrameCorner = Instance.new("UICorner")
 				local CurrentSelectedText = Instance.new("TextLabel")
 				local ArrowImg = Instance.new("ImageLabel")
 				local DropdownFrameBtn = Instance.new("TextButton")
@@ -2850,7 +2845,6 @@ function DiscordLib:Window(text)
 				Dropdown.Parent = ChannelHolder
 				Dropdown.BackgroundTransparency = 1
 				Dropdown.Size = UDim2.new(0, 403, 0, 73)
-				Dropdown.ZIndex = 100
 			
 				DropdownTitle.Name = "DropdownTitle"
 				DropdownTitle.Parent = Dropdown
@@ -2862,27 +2856,15 @@ function DiscordLib:Window(text)
 				DropdownTitle.TextColor3 = Color3.fromRGB(127, 131, 137)
 				DropdownTitle.TextSize = 14
 				DropdownTitle.TextXAlignment = Enum.TextXAlignment.Left
-				DropdownTitle.ZIndex = 101
-			
-				DropdownFrameOutline.Name = "DropdownFrameOutline"
-				DropdownFrameOutline.Parent = DropdownTitle
-				DropdownFrameOutline.AnchorPoint = Vector2.new(0.5, 0.5)
-				DropdownFrameOutline.BackgroundColor3 = Color3.fromRGB(37, 40, 43)
-				DropdownFrameOutline.Position = UDim2.new(0.988, 0, 1.62, 0)
-				DropdownFrameOutline.Size = UDim2.new(0, 396, 0, 36)
-				DropdownFrameOutline.ZIndex = 102
-			
-				DropdownFrameOutlineCorner.CornerRadius = UDim.new(0, 3)
-				DropdownFrameOutlineCorner.Parent = DropdownFrameOutline
 			
 				DropdownFrame.Name = "DropdownFrame"
-				DropdownFrame.Parent = DropdownTitle
+				DropdownFrame.Parent = Dropdown
 				DropdownFrame.BackgroundColor3 = Color3.fromRGB(48, 51, 57)
-				DropdownFrame.ClipsDescendants = true
-				DropdownFrame.Position = UDim2.new(0.01, 0, 1.066, 0)
+				DropdownFrame.Position = UDim2.new(0, 5, 0, 29)
 				DropdownFrame.Size = UDim2.new(0, 392, 0, 32)
-				DropdownFrame.ZIndex = 103
+				DropdownFrame.ZIndex = 2
 			
+				local DropdownFrameCorner = Instance.new("UICorner")
 				DropdownFrameCorner.CornerRadius = UDim.new(0, 3)
 				DropdownFrameCorner.Parent = DropdownFrame
 			
@@ -2896,74 +2878,66 @@ function DiscordLib:Window(text)
 				CurrentSelectedText.TextColor3 = Color3.fromRGB(212, 212, 212)
 				CurrentSelectedText.TextSize = 14
 				CurrentSelectedText.TextXAlignment = Enum.TextXAlignment.Left
-				CurrentSelectedText.ZIndex = 104
+				CurrentSelectedText.ZIndex = 3
 			
 				ArrowImg.Name = "ArrowImg"
 				ArrowImg.Parent = CurrentSelectedText
 				ArrowImg.BackgroundTransparency = 1
-				ArrowImg.Position = UDim2.new(1.0, -22, 0.17, 0)
+				ArrowImg.Position = UDim2.new(1, -22, 0.17, 0)
 				ArrowImg.Size = UDim2.new(0, 22, 0, 22)
 				ArrowImg.Image = "http://www.roblox.com/asset/?id=6034818372"
 				ArrowImg.ImageColor3 = Color3.fromRGB(212, 212, 212)
-				ArrowImg.ZIndex = 105
+				ArrowImg.ZIndex = 4
 			
 				DropdownFrameBtn.Name = "DropdownFrameBtn"
 				DropdownFrameBtn.Parent = DropdownFrame
 				DropdownFrameBtn.BackgroundTransparency = 1
 				DropdownFrameBtn.Size = UDim2.new(1, 0, 1, 0)
 				DropdownFrameBtn.Text = ""
-				DropdownFrameBtn.ZIndex = 106
+				DropdownFrameBtn.ZIndex = 5
 			
-				local MainOutline = Instance.new("Frame")
-				local Main = Instance.new("Frame")
-				local Holder = Instance.new("ScrollingFrame")
+				local Popup = Instance.new("Frame")
+				local PopupCorner = Instance.new("UICorner")
+				local PopupStroke = Instance.new("UIStroke")
+				local Scrolling = Instance.new("ScrollingFrame")
 				local Layout = Instance.new("UIListLayout")
 			
-				MainOutline.Name = "MainOutline"
-				MainOutline.Parent = DropdownTitle
-				MainOutline.BackgroundColor3 = Color3.fromRGB(37, 40, 43)
-				MainOutline.Position = UDim2.new(-0.0015, 0, 2.17, 0)
-				MainOutline.Size = UDim2.new(0, 396, 0, 81)
-				MainOutline.ZIndex = 107
-				MainOutline.ClipsDescendants = false
-				MainOutline.Visible = false
+				Popup.Name = "MultiDropdownPopup"
+				Popup.Parent = ChannelHolder
+				Popup.BackgroundColor3 = Color3.fromRGB(47, 49, 54)
+				Popup.BorderSizePixel = 0
+				Popup.Visible = false
+				Popup.ZIndex = 1000
+				Popup.ClipsDescendants = true
 			
-				local MainOutlineCorner = Instance.new("UICorner")
-				MainOutlineCorner.CornerRadius = UDim.new(0, 3)
-				MainOutlineCorner.Parent = MainOutline
+				PopupCorner.CornerRadius = UDim.new(0, 4)
+				PopupCorner.Parent = Popup
 			
-				Main.Name = "Main"
-				Main.Parent = DropdownTitle
-				Main.BackgroundColor3 = Color3.fromRGB(47, 49, 54)
-				Main.ClipsDescendants = false
-				Main.Position = UDim2.new(0.01, 0, 2.257, 0)
-				Main.Size = UDim2.new(0, 392, 0, 77)
-				Main.ZIndex = 108
-				Main.Visible = false
+				PopupStroke.Color = Color3.fromRGB(37, 40, 43)
+				PopupStroke.Thickness = 2
+				PopupStroke.Parent = Popup
 			
-				local MainCorner = Instance.new("UICorner")
-				MainCorner.CornerRadius = UDim.new(0, 3)
-				MainCorner.Parent = Main
+				Scrolling.Name = "PlayerList"
+				Scrolling.Parent = Popup
+				Scrolling.BackgroundTransparency = 1
+				Scrolling.BorderSizePixel = 0
+				Scrolling.Position = UDim2.new(0, 4, 0, 4)
+				Scrolling.Size = UDim2.new(1, -8, 1, -8)
+				Scrolling.ScrollBarThickness = 4
+				Scrolling.ZIndex = 1001
+				Scrolling.ClipsDescendants = true
+				Scrolling.CanvasSize = UDim2.new(0, 0, 0, 0)
 			
-				Holder.Name = "Holder"
-				Holder.Parent = Main
-				Holder.BackgroundTransparency = 1
-				Holder.Position = UDim2.new(0, 3, 0, 8)
-				Holder.Size = UDim2.new(0, 385, 0, 0)
-				Holder.ScrollBarThickness = 4
-				Holder.CanvasSize = UDim2.new(0, 0, 0, 0)
-				Holder.ZIndex = 109
-				Holder.ClipsDescendants = true
-			
-				Layout.Parent = Holder
+				Layout.Parent = Scrolling
 				Layout.SortOrder = Enum.SortOrder.LayoutOrder
+				Layout.Padding = UDim.new(0, 1)
 			
 				local function updateText()
 					local names = {}
 			
-					for _, v in ipairs(list) do
-						if selected[v] then
-							table.insert(names, v)
+					for _, value in ipairs(list) do
+						if selected[value] then
+							table.insert(names, value)
 						end
 					end
 			
@@ -2984,50 +2958,58 @@ function DiscordLib:Window(text)
 					pcall(callback, result)
 				end
 			
+				local function updatePopupPosition()
+					local absolutePosition = DropdownFrame.AbsolutePosition
+					local absoluteSize = DropdownFrame.AbsoluteSize
+			
+					Popup.Position = UDim2.new(
+						0,
+						absolutePosition.X - ChannelHolder.AbsolutePosition.X,
+						0,
+						absolutePosition.Y - ChannelHolder.AbsolutePosition.Y + absoluteSize.Y + 4
+					)
+			
+					Popup.Size = UDim2.new(0, absoluteSize.X, 0, math.min(180, math.max(40, #list * 30 + 8)))
+				end
+			
 				local function rebuild()
-					for _, v in ipairs(Holder:GetChildren()) do
-						if v:IsA("TextButton") then
-							v:Destroy()
+					for _, child in ipairs(Scrolling:GetChildren()) do
+						if child:IsA("TextButton") then
+							child:Destroy()
 						end
 					end
 			
-					itemcount = 0
-					framesize = 0
-			
 					for _, value in ipairs(list) do
-						itemcount += 1
-			
-						if itemcount <= 3 then
-							framesize = itemcount * 29
-						else
-							framesize = 87
-						end
-			
 						local Item = Instance.new("TextButton")
 						local ItemText = Instance.new("TextLabel")
 			
-						Item.Name = "Item"
-						Item.Parent = Holder
+						Item.Name = "Player"
+						Item.Parent = Scrolling
 						Item.BackgroundColor3 = Color3.fromRGB(42, 44, 48)
 						Item.BackgroundTransparency = selected[value] and 0 or 1
-						Item.Size = UDim2.new(0, 379, 0, 29)
+						Item.BorderSizePixel = 0
+						Item.Size = UDim2.new(1, -4, 0, 29)
 						Item.AutoButtonColor = false
 						Item.Text = ""
-						Item.ZIndex = 110
+						Item.ZIndex = 1002
 			
-						ItemText.Name = "ItemText"
+						local ItemCorner = Instance.new("UICorner")
+						ItemCorner.CornerRadius = UDim.new(0, 3)
+						ItemCorner.Parent = Item
+			
+						ItemText.Name = "Text"
 						ItemText.Parent = Item
 						ItemText.BackgroundTransparency = 1
-						ItemText.Position = UDim2.new(0.021, 0, 0, 0)
-						ItemText.Size = UDim2.new(0, 192, 0, 29)
+						ItemText.Position = UDim2.new(0, 8, 0, 0)
+						ItemText.Size = UDim2.new(1, -16, 1, 0)
 						ItemText.Font = Enum.Font.Gotham
+						ItemText.Text = value
+						ItemText.TextSize = 14
+						ItemText.TextXAlignment = Enum.TextXAlignment.Left
 						ItemText.TextColor3 = selected[value]
 							and Color3.fromRGB(255, 255, 255)
 							or Color3.fromRGB(212, 212, 212)
-						ItemText.TextSize = 14
-						ItemText.TextXAlignment = Enum.TextXAlignment.Left
-						ItemText.Text = value
-						ItemText.ZIndex = 111
+						ItemText.ZIndex = 1003
 			
 						Item.MouseEnter:Connect(function()
 							Item.BackgroundTransparency = 0
@@ -3036,16 +3018,19 @@ function DiscordLib:Window(text)
 			
 						Item.MouseLeave:Connect(function()
 							Item.BackgroundTransparency = selected[value] and 0 or 1
-							ItemText.TextColor3 = selected[value]
-								and Color3.fromRGB(255, 255, 255)
-								or Color3.fromRGB(212, 212, 212)
+			
+							if selected[value] then
+								ItemText.TextColor3 = Color3.fromRGB(255, 255, 255)
+							else
+								ItemText.TextColor3 = Color3.fromRGB(212, 212, 212)
+							end
 						end)
 			
 						Item.MouseButton1Click:Connect(function()
-							selected[value] = not selected[value]
-			
-							if not selected[value] then
+							if selected[value] then
 								selected[value] = nil
+							else
+								selected[value] = true
 							end
 			
 							updateText()
@@ -3053,30 +3038,58 @@ function DiscordLib:Window(text)
 						end)
 					end
 			
-					Holder.CanvasSize = UDim2.new(0, 0, 0, Layout.AbsoluteContentSize.Y)
-					Holder.Size = UDim2.new(0, 385, 0, framesize)
-					Main.Size = UDim2.new(0, 392, 0, framesize + 6)
-					MainOutline.Size = UDim2.new(0, 396, 0, framesize + 10)
+					Scrolling.CanvasSize = UDim2.new(
+						0,
+						0,
+						0,
+						Layout.AbsoluteContentSize.Y + 4
+					)
+			
+					updatePopupPosition()
+				end
+			
+				local function setOpen(state)
+					DropTog = state
+			
+					Popup.Visible = state
+			
+					if state then
+						rebuild()
+			
+						task.defer(function()
+							updatePopupPosition()
+						end)
+					end
 				end
 			
 				DropdownFrameBtn.MouseButton1Click:Connect(function()
-					DropTog = not DropTog
+					setOpen(not DropTog)
+				end)
 			
-					Main.Visible = DropTog
-					MainOutline.Visible = DropTog
+				DropdownFrameBtn.MouseButton1Click:Connect(function()
+					task.defer(function()
+						if DropTog then
+							updatePopupPosition()
+						end
+					end)
+				end)
 			
+				ChannelHolder:GetPropertyChangedSignal("AbsolutePosition"):Connect(function()
 					if DropTog then
-						Dropdown.ZIndex = 100
-						DropdownTitle.ZIndex = 101
-						MainOutline.ZIndex = 107
-						Main.ZIndex = 108
-						Holder.ZIndex = 109
+						updatePopupPosition()
+					end
+				end)
+			
+				ChannelHolder:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+					if DropTog then
+						updatePopupPosition()
 					end
 				end)
 			
 				function DropFunc:Clear()
 					selected = {}
 					list = {}
+			
 					CurrentSelectedText.Text = "None"
 			
 					rebuild()
@@ -3085,15 +3098,18 @@ function DiscordLib:Window(text)
 				end
 			
 				function DropFunc:Add(value)
-					table.insert(list, value)
+					if not table.find(list, value) then
+						table.insert(list, value)
+					end
+			
 					rebuild()
 				end
 			
 				function DropFunc:SetList(newList)
 					local oldSelected = selected
 			
-					selected = {}
 					list = newList or {}
+					selected = {}
 			
 					for _, value in ipairs(list) do
 						if oldSelected[value] then
@@ -3118,8 +3134,10 @@ function DiscordLib:Window(text)
 				function DropFunc:Reset()
 					selected = {}
 			
-					updateText()
+					CurrentSelectedText.Text = "None"
+			
 					rebuild()
+					updateText()
 				end
 			
 				rebuild()
